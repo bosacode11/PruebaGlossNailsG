@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+
+        <link href="Inventario/CSS/Inventario.css" rel="stylesheet" type="text/css"/>
+        <link href="BarraNav/CSS/Prueba/barraprueba.css" rel="stylesheet" type="text/css"/>
+        <link href="BarraNav/CSS/BarraNav.css" rel="stylesheet" type="text/css"/>
+        
+    </h:head>
+    <h:body>
+
+        <div>
+            <div class="header">
+                <section class="wrapper">
+                    <nav>
+                        <ul>
+                            <li><h:link outcome="index" value="Inicio"/></li>
+                            <li><h:link outcome="inventario" value="Inventario"/></li>
+                            <li><h:link outcome="Inventario/Registro" value="Registrar"/></li>
+                            <li><h:link outcome="login" value="Salir"/></li>
+                            
+                        </ul>
+                    </nav>
+                </section>
+            </div>
+            <div id="main-container">
+                <table id="testTable">				
+                    <thead>
+                        <tr>
+                            <th colspan="5" class="tittle"><h1>Inventario <input type="search" id="buscador" placeholder="Buscar Item"/></h1></th>
+                        </tr>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Codigo</th>
+                            <th>Stock</th>
+                            <th>Precio</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Producto Numero 1</td>
+                            <td>P-0001</td>
+                            <td>5</td>
+                            <td>$1.000</td>
+                            <td><input type="button" value="opciones"/></td>
+                        </tr>
+                        <tr>
+                            <td>Producto Numero 2</td>
+                            <td>P-0002</td>
+                            <td>12</td>
+                            <td>$3.500</td>
+                            <td><input type="button" value="opciones"/></td>
+                        </tr>
+                        <tr>
+                            <td>Producto Numero 3</td>
+                            <td>P-0003</td>
+                            <td>2</td>
+                            <td>$5.600</td>
+                            <td><input type="button" value="opciones"/></td>
+                        </tr>
+                        <tr>
+                            <td>Producto Numero 4</td>
+                            <td>P-0004</td>
+                            <td>9</td>
+                            <td>$2.500</td>
+                            <td><input type="button" value="opciones"/></td>
+                        </tr>
+                        <tr>
+                            <td>Producto Numero 5</td>
+                            <td>P-0005</td>
+                            <td>7</td>
+                            <td>$5.100</td>
+                            <td><input type="button" value="opciones"/></td>
+                        </tr>
+                        <tr>
+                            <td>Producto Numero 6</td>
+                            <td>P-0006</td>
+                            <td>15</td>
+                            <td>$3.400</td>
+                            <td><input type="button" value="opciones"/></td>
+                        </tr>
+                        <tr>
+                            <td>Producto Numero 7</td>
+                            <td>P-0007</td>
+                            <td>4</td>
+                            <td>$2.600</td>
+                            <td><input type="button" value="opciones"/></td>
+                        </tr>
+                    </tbody>
+                </table>	
+                <input type="button" onclick="tableToExcel('testTable', 'W3C Example Table')" value="Export to Excel"></input>
+            </div>
+        </div>
+            
+    </h:body>
+</html>

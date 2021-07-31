@@ -1,0 +1,152 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Usuarios</title>
+
+    </h:head>
+    <h:body>
+
+        <p:growl id="msn"/>
+
+        <!-- Usuarios -->
+
+        <p:dialog widgetVar="valor" modal="true" showEffect="clip" header="Detalles Usuario" resizable="false">
+            <p:ajax event="close"  listener="#{usuarioscontroller.limpiarDatos()}" update=":usuarioForm"/>
+            <h:form id="usuarioForm">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="NOMBRE"/>
+                    <p:inputText value="#{usuarioscontroller.usuarioreg.nombre}"/>
+                    <p:outputLabel value="APELLIDO"/>
+                    <p:inputText value="#{usuarioscontroller.usuarioreg.apellidos}"/>
+                    <p:outputLabel value="CORREO ELECTRONICO"/>
+                    <p:inputText value="#{usuarioscontroller.usuarioreg.correoElectronico}"/>
+                    <p:outputLabel value="CONTRASEÑA"/>
+                    <p:inputText value="#{usuarioscontroller.usuarioreg.contrasena}"/>
+                    <p:outputLabel value="ROL"/>
+                    <p:selectOneMenu value="#{usuarioscontroller.usuarioreg.roll}">
+                        <f:selectItem itemLabel="Admin" itemValue="Admin"/>
+                        <f:selectItem itemLabel="Cliente" itemValue="Cliente"/>
+                        <f:selectItem itemLabel="Empleado" itemValue="Empleado"/>
+                    </p:selectOneMenu>
+                    <p:commandButton value="GUARDAR" actionListener="#{usuarioscontroller.guardar()}" oncomplete="PF('valor').hide();" update=":Datos_de_Usuarios usuarioForm :msn"/>
+                    <p:commandButton value="EDITAR" actionListener="#{usuarioscontroller.editar()}" oncomplete="PF('valor').hide();" update=":Datos_de_Usuarios usuarioForm :msn"/>
+                </p:panelGrid>
+            </h:form>
+
+        </p:dialog>
+
+        <h:form id="Datos_de_Usuarios">
+            <p:fieldset legend="Datos de Usuarios" toggleable="true">
+                <div style="display: inline-block; align-content: space-between ">
+
+                    <p:panelGrid columns="3">
+                        <p:commandButton value="Nuevo Usuario" oncomplete="PF('valor').show();"/>
+                        <h:commandLink>
+                            <h:graphicImage url="../resources/img/excel3.png" width="40" height="40" style="border-radius: 100%" />
+                            <p:dataExporter type="xls" target="tabla1" fileName="DatosUsuarioExcel"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <h:graphicImage url="../resources/img/pdf.png" width="40" height="40" style="border-radius: 100%"/>
+                            <p:dataExporter type="pdf" target="tabla1" fileName="DatosUsuarioPdf"/>
+                        </h:commandLink>
+                    </p:panelGrid>
+
+
+                </div>
+                <p:dataTable id="tabla1" value="#{usuarioscontroller.listaUsuarios}" var="u" editable="true">
+
+
+                    <p:column headerText="ID USUARIO">
+                        <h:outputText value="#{u.idUsuarios}"/>
+                    </p:column>
+                    <p:column headerText="NOMBRE">
+                        <h:outputText value="#{u.nombre}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="APELLIDO">
+                        <h:outputText value="#{u.apellidos}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="CORREO ELECTRÓNICO">
+                        <h:outputText value="#{u.correoElectronico}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="CONTRASEÑA">
+                        <h:outputText value="#{u.contrasena}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="ROL">
+                        <h:outputText value="#{u.roll}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Opciones" exportable="false">
+                        <p:commandButton actionListener="#{usuarioscontroller.eliminar(u)}" update=":Datos_de_Usuarios :msn" value="Eliminar"/>
+                        <p:commandButton actionListener="#{usuarioscontroller.cargarDatos(u)}" oncomplete="PF('valor').show();" update=":usuarioForm" value="Editar"/>
+                    </p:column>
+
+                </p:dataTable>
+            </p:fieldset>
+        </h:form>
+
+        <!-- Inventario -->
+
+        <p:dialog widgetVar="citas" modal="true" showEffect="clip" header="AC" resizable="false">
+            <p:ajax event="close"  listener="#{citascontroller.limpiarDatos()}" update=":citasForm"/>
+            <h:form id="citasForm">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="MANICURISTA"/>
+                    <p:inputText value="#{citascontroller.citas.manicurista}"/>
+                    <p:outputLabel value="TIPO DE SERVICIO"/>
+                    <p:inputText value="#{citascontroller.citas.TServicio}"/>
+                    <p:outputLabel value="FECHA"/>
+                    <p:inputText value="#{citascontroller.citas.fecha}"/>
+                    <p:outputLabel value="HORA"/>
+                    <p:inputText value="#{citascontroller.citas.hora}"/>
+                    <p:commandButton value="GUARDAR" actionListener="#{citascontroller.registrar()}" oncomplete="PF('citas').hide();" update=":Citas citasForm :msn"/>
+                    <p:commandButton value="EDITAR" actionListener="#{citascontroller.editar()}" oncomplete="PF('citas').hide();" update=":Citas citasForm :msn"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <h:form id="Citas">
+            <p:fieldset legend="Citas" toggleable="true">
+                <div style="display: inline-block; align-content: space-between ">
+                    <p:panelGrid columns="3">
+                        <p:commandButton value="Nueva Cita" oncomplete="PF('cita').show();"/>
+                        <h:commandLink>
+                            <h:graphicImage url="../resources/img/excel3.png" width="40" height="40" style="border-radius: 100%" />
+                            <p:dataExporter type="xls" target="tabla3" fileName="InventarioExcel"/>
+                        </h:commandLink>
+                        <h:commandLink>
+                            <h:graphicImage url="../resources/img/pdf.png" width="40" height="40" style="border-radius: 100%"/>
+                            <p:dataExporter type="pdf" target="tabla3" fileName="InventarioPdf"/>
+                        </h:commandLink>
+                    </p:panelGrid>
+                </div>
+                
+                <p:dataTable id="tabla3" value="#{citascontroller.listcitas}" var="AC" editable="true">
+                    <p:column headerText="ID CITA">
+                        <h:outputText value="#{AC.idagendamiento}"/>
+                    </p:column>
+                    <p:column headerText="MANICURISTA">
+                        <h:outputText value="#{AC.manicurista}"/>
+                    </p:column>
+                    <p:column headerText="TIPO DE SERVICIO">
+                        <h:outputText value="#{AC.TServicio}"/>
+                    </p:column>
+                    <p:column headerText="FECHA">
+                        <h:outputText value="#{AC.fecha}"/>
+                    </p:column>
+                    <p:column headerText="HORA">
+                        <h:outputText value="#{AC.hora}"/>
+                    </p:column>
+                    <p:column headerText="Opciones" exportable="false">
+                        <p:commandButton actionListener="#{citascontroller.eliminar(AC)}" update=":Citas :msn" value="Eliminar"/>
+                        <p:commandButton actionListener="#{citascontroller.cargarDatos(AC)}" oncomplete="PF('citas').show();" update=":citasForm" value="Editar"/>
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+        </h:form>
+        
+    </h:body>
+</html>
+

@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"/>
+        <link href="Login/CSS/EstiloLogin.css" rel="stylesheet" type="text/css"/>
+        <link href="BarraNav/CSS/BarraNav.css" rel="stylesheet" type="text/css"/>
+        <link href="BarraNav/CSS/Prueba/barraprueba.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript">
+            const usuarios = document.getElementById("usuarios");
+            const contras = document.getElementById("contras");
+            const form2 = document.getElementById("form2");
+            const parrafo2 = document.getElementById("warnings2");
+            form2.addEventListener("submit", event => {
+                event.preventDefault();
+                let warnings2 = "";
+                let entrar = false;
+                parrafo2.innerHTML = "";
+
+                if (usuarios.value !== "cliente") {
+                    warnings2 += "El email es incorrecto <br/>";
+                    entrar = true;
+                }
+                if (contras.value !== "cliente123") {
+                    warnings2 += "La contraseña es incorrecta <br/>";
+                    entrar = true;
+                }
+
+                if (entrar) {
+                    parrafo2.innerHTML = warnings2;
+                } else {
+                    parrafo2.innerHTML = "Login Satisfactorio";
+                    location.href = "#";
+                }
+            });
+        </script>             
+
+    </h:head>
+    <h:body id="body">
+
+        <!-- barra de navegacion -->
+        <div class="header">
+            <section class="wrapper">
+                <nav>
+                    <ul>
+                        <li><h:link outcome="index" value="Inicio" /></li>
+                    </ul>
+                </nav>
+            </section>
+        </div>
+
+        <!-- Login -->
+        <div class="container">
+            <div class="login-container">
+                <div class="register">
+
+                    <h2>Registrarse</h2>
+                    <h:form id="form">
+
+                        <p:inputText value="#{usuarioscontroller.usuarioreg.nombre}" placeholder="Nombres" />
+                        <p:inputText value="#{usuarioscontroller.usuarioreg.apellidos}" placeholder="Apellidos" />
+                        <p:inputText placeholder="Correo Electronico" value="#{usuarioscontroller.usuarioreg.correoElectronico}" />
+                        <p:inputText placeholder="Contraseña" type="password" value="#{usuarioscontroller.usuarioreg.contrasena}"/>
+                        <p:inputText placeholder="Confirmar Contraseña" type="password"/>
+                        <p:commandButton value="Registrar" actionListener="#{usuarioscontroller.guardar()}" />
+
+                        <p class="warnings" id="warnings"></p>
+
+                    </h:form>
+
+                </div>
+                <div class="login" method="POST">
+                    <h2>Iniciar Sesión</h2>
+
+                    <h:form id="form2">
+
+                        <input type="text" placeholder="Correo Electronico" name="Usuario" class="usuario" id="usuarios"/>
+
+                        <input type="password" placeholder="Contraseña" name="userContraseña" class="contra" id="contras"/> 
+
+                        <input type="submit" class="submit" value="Login"/>
+
+                        <p class="warnings" id="warnings2"></p>
+                        <br/>
+                    </h:form>
+                    <script src="login/registro.js"></script>
+                    <h:form>
+                        <input type="checkbox" id="recordar" name="recordar"/>
+                        <label for="recordar" >Recordar mis datos</label>
+                    </h:form>
+
+                </div>
+            </div>
+        </div>
+
+
+    </h:body>
+</html>
